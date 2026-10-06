@@ -1,6 +1,7 @@
-from sqlalchemy import String, Text, Integer
+from sqlalchemy import String, Text, Integer, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
 from pydantic import BaseModel
+from datetime import datetime,timezone
 
 # Application models
 class JobRequest(BaseModel):
@@ -20,6 +21,8 @@ class Job(Base):
     status: Mapped[str] = mapped_column(String, default="pending")
     result: Mapped[str | None] = mapped_column(Text, nullable=True)
     error: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True),default=lambda: datetime.now(timezone.utc))
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True),default=lambda: datetime.now(timezone.utc),onupdate=lambda: datetime.now(timezone.utc))
 
     def __repr__(self):
         return f"<Job id={self.id} type={self.type} status={self.status}>"

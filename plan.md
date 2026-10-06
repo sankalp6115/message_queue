@@ -15,9 +15,7 @@ Implement POST /jobs, GET /jobs/{id} and GET /jobs.
 Validate job types and payloads using Pydantic.
 
 Day 2: Worker
-
 Create a separate worker process.
-
 Poll SQLite for pending jobs.
 
 Implement sleep and calculate handlers.
